@@ -1,8 +1,9 @@
+import org.cyberneko.html.parsers.SAXParser
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'application'
 apply plugin: 'launch4j'
-apply plugin: 'sonar-runner'
 
 if (System.properties['os.name'].toLowerCase().contains('mac')) {
     apply plugin: 'macAppBundle'
@@ -14,29 +15,30 @@ if (System.properties['os.name'].toLowerCase().contains('mac')) {
 }
 
 mainClassName = "com.cburch.logisim.Main"
-version = '2.7.2'
+version = '3.0.1'
 applicationName = 'Logisim'
 description = 'Logisim: Logic Simulator'
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.2'
+    gradleVersion = '4.10.2'
 }
 
 jar {
     manifest {
         attributes 'Implementation-Title': applicationName,
-                   'Implementation-Version': version,
-         		   'Main-Class': mainClassName
+                'Implementation-Version': version,
+                'Main-Class': mainClassName
     }
+
     // create a fat jar
     from {
-              configurations.compile.collect {
-                  it.isDirectory() ? it : zipTree(it)
-              }
-              configurations.runtime.collect {
-                  it.isDirectory() ? it : zipTree(it)
-              }
-          }
+        configurations.compile.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+        configurations.runtime.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
 }
 
 launch4j {
@@ -54,12 +56,11 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath \
-        'edu.sc.seis.gradle:launch4j:1.0.6',
-        'net.sourceforge.nekohtml:nekohtml:1.9.18',
-        'javax.help:javahelp:2.0.05',
-        'edu.sc.seis.gradle:macappbundle:2.0.0',
-        'net.sf.proguard:proguard-gradle:5.2'
+        classpath 'edu.sc.seis.gradle:launch4j:1.0.6'
+        classpath 'net.sourceforge.nekohtml:nekohtml:1.9.18'
+        classpath 'javax.help:javahelp:2.0.05'
+        classpath 'edu.sc.seis.gradle:macappbundle:2.0.0'
+        classpath 'net.sf.proguard:proguard-gradle:5.2'
     }
 }
 
@@ -68,22 +69,25 @@ repositories {
 }
 
 dependencies {
-    compile \
-    'javax.help:javahelp:2.0.05',
-    'net.sourceforge.collections:collections-generic:4.01',
-    'org.apache.xmlgraphics:batik-svggen:1.7',
-    'org.apache.xmlgraphics:batik-swing:1.7',
+//    implementation 'io.github.dheid:colorpicker:1.1'
+    compile 'io.github.dheid:colorpicker:1.1'
+
+    compile 'javax.help:javahelp:2.0.05'
+    compile 'net.sourceforge.collections:collections-generic:4.01'
+    compile 'org.apache.xmlgraphics:batik-svggen:1.7'
+    compile 'org.apache.xmlgraphics:batik-swing:1.7'
+
 
     // Native JDK logger (java.util.logging)
-    //'org.slf4j:slf4j-jdk14:1.7.5',
+    //compile 'org.slf4j:slf4j-jdk14:1.7.5'
 
     // Simplified logger (less lines)
-    'org.slf4j:slf4j-simple:1.6.1',
+    compile 'org.slf4j:slf4j-simple:1.6.1'
 
     // Logging does nothing (use for release builds)
-    //'org.slf4j:slf4j-nop:1.7.5',
+    //compile 'org.slf4j:slf4j-nop:1.7.5'
 
-	'com.itextpdf:itextpdf:5.5.0',
+    compile 'com.itextpdf:itextpdf:5.5.0'
 
     // Local dependencies convention: ./libs/*.jar
     fileTree(dir: 'libs', include: '*.jar')
@@ -93,7 +97,7 @@ dependencies {
 
 processResources << {
     println "Processing Java Help..."
-    def parser = new org.cyberneko.html.parsers.SAXParser()
+    def parser = new SAXParser()
     def doc_src = 'src/main/resources/doc'
     def doc_target = 'build/resources/main/doc'
 

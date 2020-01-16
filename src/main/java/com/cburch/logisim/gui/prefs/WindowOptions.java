@@ -9,7 +9,7 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import com.cburch.logisim.data.Direction;
 import com.cburch.logisim.prefs.AppPreferences;
 import com.cburch.logisim.util.TableLayout;
-import com.sun.java.swing.plaf.motif.MotifLookAndFeel;
+//import com.sun.java.swing.plaf.motif.MotifLookAndFeel;
 import static com.cburch.logisim.util.LocaleString.*;
 
 @SuppressWarnings("serial")
@@ -58,7 +58,7 @@ class WindowOptions extends OptionsPanel {
             new PrefOption[] {
                 new PrefOption(UIManager.getSystemLookAndFeelClassName(), getFromLocale("systemLookAndFeel")),
                 new PrefOption(NimbusLookAndFeel.class.getName(), getFromLocale("nimbusLookAndFeel")),
-                new PrefOption(MotifLookAndFeel.class.getName(), getFromLocale("motifLookAndFeel")),
+//                new PrefOption(MotifLookAndFeel.class.getName(), getFromLocale("motifLookAndFeel")),
                 new PrefOption(MetalLookAndFeel.class.getName(), getFromLocale("metalLookAndFeel")),
                  });
         panel.add(lookAndFeel.getJLabel());

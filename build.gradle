@@ -66,6 +66,9 @@ buildscript {
 
 repositories {
     mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
 }
 
 dependencies {
@@ -77,6 +80,8 @@ dependencies {
     compile 'org.apache.xmlgraphics:batik-svggen:1.7'
     compile 'org.apache.xmlgraphics:batik-swing:1.7'
 
+    implementation name: 'colorpicker-1.0'
+    implementation name: 'mrjadapter-1.1'
 
     // Native JDK logger (java.util.logging)
     //compile 'org.slf4j:slf4j-jdk14:1.7.5'
@@ -94,6 +99,8 @@ dependencies {
 
     testCompile 'junit:junit:4.11'
 }
+
+
 
 processResources << {
     println "Processing Java Help..."
